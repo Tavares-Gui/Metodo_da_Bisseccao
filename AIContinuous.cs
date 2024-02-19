@@ -10,7 +10,6 @@ namespace IA
         private static double x0 { get; set; }
         private static double x2 { get; set; }
         private static double middle { get; set; }
-        public static int InterCount { get; set; }
 
         public static double Bisection(Func<double, double> function, double a, double b, double tol = 1e-4, int maxIter = 1000)
         {
@@ -26,8 +25,6 @@ namespace IA
                     a = middle;
                 else
                     b = middle;
-
-                InterCount++;
             }
 
             return (a + b) / 2;

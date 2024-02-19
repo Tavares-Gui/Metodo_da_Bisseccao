@@ -7,4 +7,3 @@ double MyFunction(double x)
 
 var sol = Root.Bisection(MyFunction, -10, 10);
 Console.WriteLine(sol);
-Console.WriteLine(Root.InterCount);
