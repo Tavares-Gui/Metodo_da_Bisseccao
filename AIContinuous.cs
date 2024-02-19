@@ -42,7 +42,7 @@ namespace IA
             return middle;
         }
 
-        public static double FalsePosition(Func<double, double> function, double a, double b, double aTol = 1e-4, double rTol = 1e-4, int maxIter = 1000)
+        public static double FalsePosition(Func<double, double> function, double a, double b)
         {
             x0 = a;
             x1 = b;
