@@ -2,12 +2,13 @@
 
 double MyFunction(double x)
 {
-    return x * x;
+    return (Math.Sqrt(Math.Abs(x)) - 5) * x + 10;
+
 }
 
 double MyDer(double x)
 {
-    return (Math.Sqrt(Math.Abs(x)) - 5) * x + 10;
+    return x / (2.0 * Math.Sqrt(Math.Abs(x))) + (Math.Sqrt(Math.Abs(x)) - 5);
 }
 
 double sol;
@@ -23,4 +24,8 @@ Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMillisec
 
 date = DateTime.Now;
 sol = Root.Newton(MyFunction, MyDer, 10.0);
+Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+
+date = DateTime.Now;
+sol = Root.Newton(MyFunction, double(double x) => Diff.Differentiate(MyFunction, x), 10.0);
 Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");

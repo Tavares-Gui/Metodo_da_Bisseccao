@@ -1,10 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Threading.Tasks.Dataflow;
-
 namespace IA
 {
     public class Root
