@@ -12,6 +12,7 @@ double MyFunction(double x)
 
 double sol;
 var date = DateTime.Now;
+double chute = 1.0;
 
 // date = DateTime.Now;
 // sol = Root.Bisection(MyFunction, -10.0, 10.0);
@@ -30,5 +31,15 @@ var date = DateTime.Now;
 // Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
 
 date = DateTime.Now;
-sol = Optimize.Newton(MyFunction, 1.0);
+sol = Optimize.Newton(MyFunction, chute);
+
+// double oldSol = Optimize.Newton(MyFunction, chute + 1);
+
+// while (sol > oldSol)
+// {
+//     chute += 5;
+//     sol = Optimize.Newton(MyFunction, chute);
+//     oldSol = Optimize.Newton(MyFunction, chute);
+// }
+
 Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
