@@ -2,30 +2,33 @@
 
 double MyFunction(double x)
 {
-    return (Math.Sqrt(Math.Abs(x)) - 5) * x + 10;
-
+    return (x - 1) * (x - 1) + Math.Sin(x * x * x);
 }
 
-double MyDer(double x)
-{
-    return x / (2.0 * Math.Sqrt(Math.Abs(x))) + (Math.Sqrt(Math.Abs(x)) - 5);
-}
+// double MyDer(double x)
+// {
+//     return x / (2.0 * Math.Sqrt(Math.Abs(x))) + (Math.Sqrt(Math.Abs(x)) - 5);
+// }
 
 double sol;
 var date = DateTime.Now;
 
-date = DateTime.Now;
-sol = Root.Bisection(MyFunction, -10.0, 10.0);
-Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+// date = DateTime.Now;
+// sol = Root.Bisection(MyFunction, -10.0, 10.0);
+// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+
+// date = DateTime.Now;
+// sol = Root.FalsePosition(MyFunction, -10.0, 10.0);
+// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+
+// date = DateTime.Now;
+// sol = Root.Newton(MyFunction, MyDer, 10.0);
+// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+
+// date = DateTime.Now;
+// sol = Root.Newton(MyFunction, double(double x) => Diff.Differentiate(MyFunction, x), 10.0);
+// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
 
 date = DateTime.Now;
-sol = Root.FalsePosition(MyFunction, -10.0, 10.0);
-Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-date = DateTime.Now;
-sol = Root.Newton(MyFunction, MyDer, 10.0);
-Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-date = DateTime.Now;
-sol = Root.Newton(MyFunction, double(double x) => Diff.Differentiate(MyFunction, x), 10.0);
+sol = Optimize.Newton(MyFunction, 1.0);
 Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
