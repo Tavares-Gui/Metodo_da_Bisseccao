@@ -2,8 +2,25 @@
 
 double MyFunction(double x)
 {
-    return x + 1;
+    return x * x;
 }
 
-var sol = Root.FalsePosition(MyFunction, -10, 10);
-Console.WriteLine(sol);
+double MyDer(double x)
+{
+    return (Math.Sqrt(Math.Abs(x)) - 5) * x + 10;
+}
+
+double sol;
+var date = DateTime.Now;
+
+date = DateTime.Now;
+sol = Root.Bisection(MyFunction, -10.0, 10.0);
+Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+
+date = DateTime.Now;
+sol = Root.FalsePosition(MyFunction, -10.0, 10.0);
+Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+
+date = DateTime.Now;
+sol = Root.Newton(MyFunction, MyDer, 10.0);
+Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
