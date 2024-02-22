@@ -8,8 +8,18 @@ double MyFunction(double x)
 
 double MyFunctionDims(double[] x)
 {
-    return x[0] * x[0] + x[1] * x[1];
+    // return x[0] * x[0] + x[1] * x[1];
     // return (x[0] + 2 * x[1] - 7) * (x[0] + 2 * x[1] - 7) + (2 * x[0] + x[1] - 5) * (2 * x[0] + x[1] - 5);
+
+    double sum = 0;
+    int n = x.Length - 1;
+
+    for (int i = 0; i < n; i++)
+    {
+        sum += 100 * (Math.Pow(x[i + 1] - (x[i] * x[i]), 2) + Math.Pow(x[i] - 1, 2));
+    }
+
+    return sum;
 }
 
 // double MyDer(double x)
@@ -46,8 +56,8 @@ var date = DateTime.Now;
 
 // Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
 
-double[] val = {27, 8};
+double[] val = {10, 10};
 date = DateTime.Now;
-solVal = Optimize.GradientDescent(MyFunctionDims, val);
+solVal = Optimize.GradientDescent(MyFunctionDims, val, 1e-5, 1e-9);
 
 Console.WriteLine($"x: {solVal[0]} | y: {solVal[1]} | Time: {(DateTime.Now - date).TotalMilliseconds}");
