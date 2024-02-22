@@ -50,11 +50,20 @@ public class DiffEvolution
         BestIndividualFitness = fitnessBest;
     }
 
+    private double[] Mutate(double[] individual)
+    {
+        var newIndividual = new double[Dimension];
+
+        newIndividual = Individuals[BestIndividualIndex] + mutation;
+        
+        return individual;
+    }
+
     public double[] Optimize()
     {
         GeneratePopulation();
         FindBestIndividual();
 
         return Individuals[BestIndividualIndex];
-    }   
+    }
 }
