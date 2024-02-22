@@ -52,10 +52,13 @@ public class DiffEvolution
 
     private double[] Mutate(double[] individual)
     {
-        var newIndividual = new double[Dimension];
-
-        newIndividual = Individuals[BestIndividualIndex] + mutation;
+        var newIndividual = new double[Dimension]; 
         
+        for (int i = 0; i < Dimension; i++)
+        {
+            newIndividual[i] += Individuals[Random.Shared.Next(NPop)][i] - Individuals[Random.Shared.Next(NPop)][i];
+        }
+
         return individual;
     }
 
