@@ -4,17 +4,19 @@ public class DiffEvolution
 {
     protected int NPop { get; set; }
     protected int Dimension { get; set; }
+    protected double Mutation { get; set; }
     protected List<double[]> Bounds { get; set; }
     protected int BestIndividualIndex { get; set; }
-    protected double BestIndividualFitness { get; set; } = double.MaxValue;
     protected List<double[]> Individuals { get; set; }
     protected Func<double[], double> Fitness { get; set; }
+    protected double BestIndividualFitness { get; set; } = double.MaxValue;
 
-    public DiffEvolution(Func<double[], double> fitness, List<double[]> bounds, int npop)
+    public DiffEvolution(Func<double[], double> fitness, List<double[]> bounds, int npop, double mutation = 0.7)
     {
         this.NPop = npop;
         this.Bounds = bounds;
         this.Fitness = fitness;
+        this.Mutation = mutation;
         this.Dimension = bounds.Count;
         Individuals = new List<double[]>(NPop);
     }
@@ -25,11 +27,13 @@ public class DiffEvolution
 
         for (int i = 0; i < NPop; i++)
         {
-            Individuals[i] = new double[dimension];
+            Individuals.Add(new double[dimension]);
 
             for (int j = 0; j < dimension; j++)
-                Individuals[i][j] = Utils.Rescale(Random.Shared.NextDouble(), Bounds[j][0], Bounds[j][0]);
+                Individuals[i][j] = Utils.Rescale(Random.Shared.NextDouble(), Bounds[j][0], Bounds[j][1]);
         }
+
+        FindBestIndividual();
     }
 
     private void FindBestIndividual()
@@ -54,18 +58,35 @@ public class DiffEvolution
     {
         var newIndividual = new double[Dimension]; 
         
+        var individualRand1 = Random.Shared.Next(NPop);
+        var individualRand2 = Random.Shared.Next(NPop);
+        
         for (int i = 0; i < Dimension; i++)
         {
-            newIndividual[i] += Individuals[Random.Shared.Next(NPop)][i] - Individuals[Random.Shared.Next(NPop)][i];
+            newIndividual[i] += Mutation * Individuals[individualRand1][i] - Individuals[individualRand2][i];
         }
 
         return individual;
     }
 
-    public double[] Optimize()
+    protected void Iterate() {
+        for (int i = 0; i < NPop; i++)
+        {
+            var trial = Mutate(Individuals[i]);
+
+            if (Fitness(trial) < Fitness(Individuals[i]))
+                Individuals[i] = trial;
+        }
+
+        FindBestIndividual();
+    }
+
+    public double[] Optimize(int n)
     {
         GeneratePopulation();
-        FindBestIndividual();
+
+        for (int i = 0; i < n; i++)
+            Iterate();
 
         return Individuals[BestIndividualIndex];
     }

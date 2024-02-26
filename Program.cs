@@ -1,16 +1,9 @@
-﻿using System.Runtime.CompilerServices;
-using IA;
+﻿using IA;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
-double MyFunction(double x)
+double Rosenbrock(double[] x)
 {
-    return (x - 1) * (x - 1) + Math.Sin(x * x * x);
-}
-
-double MyFunctionDims(double[] x)
-{
-    // return x[0] * x[0] + x[1] * x[1];
-    // return (x[0] + 2 * x[1] - 7) * (x[0] + 2 * x[1] - 7) + (2 * x[0] + x[1] - 5) * (2 * x[0] + x[1] - 5);
-
     double sum = 0;
     int n = x.Length - 1;
 
@@ -22,42 +15,13 @@ double MyFunctionDims(double[] x)
     return sum;
 }
 
-// double MyDer(double x)
-// {
-//     return x / (2.0 * Math.Sqrt(Math.Abs(x))) + (Math.Sqrt(Math.Abs(x)) - 5);
-// }
+List<double[]> bounds = new()
+{
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0}
+};
 
-double sol;
-double[] solVal;
-var date = DateTime.Now;
+var diffEvolution = new DiffEvolution(Rosenbrock, bounds, 1000);
+var res = diffEvolution.Optimize(100);
 
-// date = DateTime.Now;
-// sol = Root.Bisection(MyFunction, -10.0, 10.0);
-// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-
-// date = DateTime.Now;
-// sol = Root.FalsePosition(MyFunction, -10.0, 10.0);
-// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-
-// date = DateTime.Now;
-// sol = Root.Newton(MyFunction, MyDer, 10.0);
-// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-
-// date = DateTime.Now;
-// sol = Root.Newton(MyFunction, double(double x) => Diff.Differentiate(MyFunction, x), 10.0);
-// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-
-// date = DateTime.Now;
-// sol = Optimize.Newton(MyFunction, 1);
-
-// Console.WriteLine($"Solution: {sol} | Time: {(DateTime.Now - date).TotalMilliseconds}");
-
-double[] val = {10, 10};
-date = DateTime.Now;
-solVal = Optimize.GradientDescent(MyFunctionDims, val, 1e-5, 1e-9);
-
-Console.WriteLine($"x: {solVal[0]} | y: {solVal[1]} | Time: {(DateTime.Now - date).TotalMilliseconds}");
+Console.WriteLine($"Res: {res[0]} | {res[1]}");
