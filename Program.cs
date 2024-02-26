@@ -15,21 +15,18 @@ double Rosenbrock(double[] x)
     return sum;
 }
 
+double Restriction(double[] x)
+{
+    return -1.0;
+}
+
 List<double[]> bounds = new()
 {
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0},
+    new double[] { -10.0, 10.0 },
+    new double[] { -10.0, 10.0 }
 };
 
-var diffEvolution = new DiffEvolution(Rosenbrock, bounds, 200);
-var res = diffEvolution.Optimize(100);
+var diffEvolution = new DiffEvolution(Rosenbrock, bounds, Restriction, 200);
+var res = diffEvolution.Optimize(1000);
 
 Console.WriteLine($"Res: {res[0]} | {res[1]}");
