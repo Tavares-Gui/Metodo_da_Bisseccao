@@ -68,12 +68,14 @@ public class DiffEvolution
             individualRand2 = Random.Shared.Next(NPop);
         } while (individualRand2 == individualRand1);
         
+        newIndividual = (double[])Individuals[BestIndividualIndex].Clone();
+
         for (int i = 0; i < Dimension; i++)
         {
-            newIndividual[i] += Mutation * Individuals[individualRand1][i] - Individuals[individualRand2][i];
+            newIndividual[i] += Mutation * (Individuals[individualRand1][i] - Individuals[individualRand2][i]);
         }
 
-        return individual;
+        return newIndividual;
     }
 
     protected double[] Crossover(int index)

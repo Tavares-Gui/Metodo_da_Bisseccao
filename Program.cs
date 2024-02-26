@@ -18,10 +18,18 @@ double Rosenbrock(double[] x)
 List<double[]> bounds = new()
 {
     new double[] {-10.0, 10.0},
-    new double[] {-10.0, 10.0}
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
+    new double[] {-10.0, 10.0},
 };
 
-var diffEvolution = new DiffEvolution(Rosenbrock, bounds, 1000);
+var diffEvolution = new DiffEvolution(Rosenbrock, bounds, 200);
 var res = diffEvolution.Optimize(100);
 
 Console.WriteLine($"Res: {res[0]} | {res[1]}");
